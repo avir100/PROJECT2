@@ -1,0 +1,29 @@
+<html>
+  <head>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+      integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk"
+      crossorigin="anonymous"
+    />
+  </head>
+
+  <body>
+    <form method="POST">
+      <div class="container">
+        <div class="jumbotron">
+          <h1>Register Here!!</h1>
+          {% load crispy_forms_tags %}
+
+          {% block content %}
+             
+            {% csrf_token %}
+            {{ form|crispy }}
+           
+          {% endblock %}
+          <input type="submit" class="btn btn-primary" value="Register" />
+        </div>
+      </div>
+    </form>
+  </body>
+</html>

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    
+     {% load static %}
+     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}"/>
+</head>
+<body>
+    {% if form.errors %}
+      <div class="form-group row">
+        
+      <div class="alert alert-danger">
+        
+                <strong>{{ form.errors|escape }}</strong>
+            </div>
+            </div>
+                       
+
+    {% endif %}
+<table class="table table-striped table-bordered table-sm">
+    <thead class="thead-dark">
+    <tr>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Email</th>
+        <th>Post Content</th>
+        <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+
+
+     <tr>
+ {% if curr %}  
+        <form method="POST" class="post-form" action="/update/{{curr.id}}">
+        {% csrf_token %} 
+        <td><input type="text" name="first_name" id="id_first_name" required maxlength="100" value="{{ curr.first_name}}"/></td>
+        <td><input type="text" name="last_name" id="id_last_name" required maxlength="100" value="{{ curr.last_name}}"/></td>
+        <td><input type="text" name="email" id="id_email" required maxlength="254" value="{{ curr.email}}"/></td>
+        <td><input type="text" name="bpost" id="id_bpost" required maxlength="1000" value="{{ curr.bpost}}"/></td>
+        <td>
+
+        <a href="/delete/{{ curr.id }}">DELETE</a>
+        <button type="submit" class="btn btn-success">Update</button>
+        
+        </td>
+        </tr>
+        </form>
+{% endif %}
+{% for post in posts %}
+        <td>{{ post.first_name }}</td>
+        <td>{{ post.last_name }}</td>
+        <td>{{ post.email }}</td>
+        <td>{{ post.bpost }}</td>
+        <td>
+
+        <a href="/delete/{{ post.id }}">DELETE</a>
+        <a href="/edit/{{ post.id }}"><span class="glyphicon glyphicon-pencil" >Edit</span></a>
+        </td>
+          
+               
+            
+            </tr>
+{% endfor %}
+    </tbody>
+</table>
+<br>
+<br>
+<center><a href="/blogpost" class="btn btn-primary">Add New Post</a></center>
+
+</body>
+</html>
